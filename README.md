@@ -10,7 +10,7 @@ Tags a repository and creates a GitHub Release. This action performs the followi
 ## Usage
 
 ```yaml
-- uses: @twin-digital/action-create-release@v1
+- uses: twin-digital/action-create-release@v1
 ```
 
 ## License
