@@ -1,6 +1,11 @@
 name: Create Release
 description: Tags a repository and creates a GitHub Release.
 
+outputs:
+  repository:
+    description: New version number tagged in this release.
+    value: ${{ steps.semver.outputs.version }}
+
 runs:
   using: "composite"
   steps:

@@ -13,6 +13,12 @@ Tags a repository and creates a GitHub Release. This action performs the followi
 - uses: twin-digital/action-create-release@v1
 ```
 
+## Outputs
+
+This step has the following outputs:
+
+* `version`: New version number tagged in this release.
+
 ## License
 
 The contents of this repository are released under the [MIT License](LICENSE).
