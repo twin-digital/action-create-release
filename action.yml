@@ -2,7 +2,7 @@ name: Create Release
 description: Tags a repository and creates a GitHub Release.
 
 outputs:
-  repository:
+  version:
     description: New version number tagged in this release.
     value: ${{ steps.semver.outputs.version }}
 
