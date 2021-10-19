@@ -20,6 +20,9 @@ runs:
       env:
         VERSION: ${{ steps.semver.outputs.version }}
       run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+
         git tag --force -a -m "Add tag for release ${VERSION}" "v${VERSION}"
         git push --force origin "v${VERSION}"
       shell: bash
