@@ -17,9 +17,11 @@ runs:
         format: "${major}.${minor}.${patch}"
 
     - name: Tag repository
+      env:
+        VERSION: ${{ steps.semver.outputs.version }}
       run: |
-        git tag "v${{ steps.semver.outputs.version }}"
-        git push origin "v${{ steps.semver.outputs.version }}"
+        git tag --force -a -m "Add tag for release ${VERSION}" "v${VERSION}"
+        git push --force origin "v${VERSION}"
       shell: bash
   
     - name: Generate changelog
