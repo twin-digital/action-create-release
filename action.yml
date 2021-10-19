@@ -13,20 +13,30 @@ runs:
       id: semver
       name: Calculate version
       with:
-        tag_prefix: "v"
         format: "${major}.${minor}.${patch}"
+        short_tags: false
+        tag_prefix: "v"
 
-    - name: Tag repository
+    - name: Add git tags
       env:
+        MAJOR: ${{ steps.semver.outputs.major }}
+        MINOR: ${{ steps.semver.outputs.minor }}
         VERSION: ${{ steps.semver.outputs.version }}
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-
+        
         git tag --force -a -m "Add tag for release ${VERSION}" "v${VERSION}"
         git push --force origin "v${VERSION}"
+        if [ "${MAJOR}" != "0" ]; then
+          # optimistic tags move, so we force these operations
+          git tag --force -a -m "Add major tag for release ${VERSION}" "v${MAJOR}"
+          git push --force origin "v${MAJOR}"
+          git tag --force -a -m "Add major.minor tag for release ${VERSION}" "v${MAJOR}.${MINOR}"
+          git push --force origin "v${MAJOR}.${MINOR}"
+        fi
       shell: bash
-  
+      
     - name: Generate changelog
       id: changelog
       uses: metcalfc/changelog-generator@v1.0.0
